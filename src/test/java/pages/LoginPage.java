@@ -10,23 +10,18 @@ import org.testng.annotations.BeforeMethod;
 public class LoginPage extends BasePage {
 
     @FindBy(id = "email")
-private WebElement email;
+    private WebElement email;
     @FindBy(id = "password")
-private WebElement password;
+    private WebElement password;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div/main/div/div[2]/div/div/div[3]/span/form/div/div[3]/button/span")
     private WebElement loginButton;
-    @BeforeClass
-    public void beforeClass(WebDriver driver, WebDriverWait driverWait) {
-        super.beforeClass(driver, driverWait);
+
+    public LoginPage(WebDriver driver, WebDriverWait driverWait) {
+        super(driver, driverWait);
     }
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/login");
-    }
-
-    public void login(String user, String pass){
+    public void login(String user, String pass) {
         email.clear();
         email.sendKeys(user);
         password.clear();
@@ -34,6 +29,11 @@ private WebElement password;
         loginButton.click();
     }
 
+    public WebElement getEmail() {
+        return email;
+    }
 
-
+    public WebElement getPassword() {
+        return password;
+    }
 }

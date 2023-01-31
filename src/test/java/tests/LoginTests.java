@@ -1,5 +1,7 @@
 package tests;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +16,7 @@ public class LoginTests extends BaseTest {
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();
-        loginPage = new LoginPage();
+        loginPage = new LoginPage(driver,driverWait);
     }
 
     @BeforeMethod
@@ -25,12 +27,19 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void VisitsTheLoginPage(){
+    public void visitsTheLoginPage(){
         String urlPage = "https://vue-demo.daniel-avellaneda.com/login";
         Assert.assertEquals(driver.getCurrentUrl(),urlPage);
     }
 
     @Test
-    public void CheckInputTypes (){
+    public void checkInputTypes () {
+        WebElement email = loginPage.getEmail();
+        WebElement password = loginPage.getPassword();
+        System.out.println(email);
+        Assert.assertEquals(email.getAttribute("type"),"email");
+        Assert.assertEquals(password.getAttribute("type"),"password");
     }
+
+
 }
