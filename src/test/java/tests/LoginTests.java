@@ -49,7 +49,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void DisplaysErrorsWhenUserDoesNotExist() {
+    public void displaysErrorsWhenUserDoesNotExist() {
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         loginPage.login(email, password);
