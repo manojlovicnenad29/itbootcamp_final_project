@@ -50,4 +50,14 @@ public class SignupPage extends BasePage {
         confirmpassword.sendKeys("123654");
         signupButton.click();
     }
+    public void validSignup(String fullname, String emailStr, String passwordStr){
+        name.clear();
+        name.sendKeys(fullname);
+        email.clear();
+        email.sendKeys(emailStr);
+        password.clear();
+        password.sendKeys(passwordStr);
+        confirmpassword.sendKeys(passwordStr);
+        signupButton.click();
+    }
 }
