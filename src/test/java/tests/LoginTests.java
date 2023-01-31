@@ -24,7 +24,7 @@ public class LoginTests extends BaseTest {
         super.beforeClass();
         loginPage = new LoginPage(driver, driverWait);
         faker = new Faker();
-        homePage = new HomePage(driver,driverWait);
+        homePage = new HomePage(driver, driverWait);
     }
 
     @BeforeMethod
@@ -72,12 +72,22 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void validLogin(){
-        loginPage.login("admin@admin.com","12345");
+    public void validLogin() {
+        loginPage.login("admin@admin.com", "12345");
         String expectedResult = "https://vue-demo.daniel-avellaneda.com/home";
         WebElement logout = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]"));
         driverWait.until(ExpectedConditions.elementToBeClickable(logout));
         Assert.assertTrue(driver.getCurrentUrl().contains(expectedResult));
+    }
+
+    @Test
+    public void logout() {
+        validLogin();
+        WebElement logout = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]"));
+        driverWait.until(ExpectedConditions.elementToBeClickable(logout));
+        Assert.assertTrue(logout.isDisplayed());
+        homePage.logout();
+        visitsTheLoginPage();
     }
 
 

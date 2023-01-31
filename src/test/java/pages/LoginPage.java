@@ -42,4 +42,12 @@ public class LoginPage extends BasePage {
     public WebElement getErrorMsg() {
         return errorMsg;
     }
+
+    public void Validlogin() {
+        email.clear();
+        email.sendKeys("admin@admin.com");
+        password.clear();
+        password.sendKeys("12345");
+        loginButton.click();
+    }
 }

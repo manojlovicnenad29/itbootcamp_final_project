@@ -15,5 +15,6 @@ public class HomePage extends BasePage{
     }
     public void logout(){
         logoutButton.click();
+
     }
 }
