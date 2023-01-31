@@ -43,7 +43,8 @@ public class LoginPage extends BasePage {
         return errorMsg;
     }
 
-    public void Validlogin() {
+    public void validlogin() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/login");
         email.clear();
         email.sendKeys("admin@admin.com");
         password.clear();
