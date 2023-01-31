@@ -28,6 +28,14 @@ public class SignupTests extends BaseTest{
         driverWait.until(ExpectedConditions.elementToBeClickable(signupButton));
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
     }
-
+    @Test
+    public void checksInputTypes(){
+    WebElement email = signupPage.getEmail();
+    WebElement password = signupPage.getPassword();
+    WebElement confirmPassword = signupPage.getConfirmpassword();
+    Assert.assertEquals(email.getAttribute("type"),"email");
+    Assert.assertEquals(password.getAttribute("type"),"password");
+    Assert.assertEquals(confirmPassword.getAttribute("type"),"password");
+    }
 
 }
