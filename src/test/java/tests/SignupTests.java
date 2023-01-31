@@ -37,5 +37,17 @@ public class SignupTests extends BaseTest{
     Assert.assertEquals(password.getAttribute("type"),"password");
     Assert.assertEquals(confirmPassword.getAttribute("type"),"password");
     }
+@Test
+    public void displaysErrorsWhenUserAlreadyExists(){
+signupPage.invalidSignup();
+//WebElement errorMsg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]"));
+//Assert.assertTrue(errorMsg.getText().contains("E-mail already exists"));
+    WebElement errorMSg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/ul/li"));
+    driverWait.until(ExpectedConditions.visibilityOf(errorMSg));
+    Assert.assertEquals(errorMSg.getText(),"E-mail already exists");
+    visitsTheSignupPage();
+}
+
+
 
 }

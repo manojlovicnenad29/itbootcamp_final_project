@@ -17,6 +17,9 @@ public class SignupPage extends BasePage {
     @FindBy(id = "confirmPassword")
     private WebElement confirmpassword;
 
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]")
+    private WebElement errorMsg;
+
     public SignupPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -35,5 +38,16 @@ public class SignupPage extends BasePage {
 
     public WebElement getConfirmpassword() {
         return confirmpassword;
+    }
+
+    public void invalidSignup(){
+        name.clear();
+        name.sendKeys("Test Test");
+        email.clear();
+        email.sendKeys("admin@admin.com");
+        password.clear();
+        password.sendKeys("123654");
+        confirmpassword.sendKeys("123654");
+        signupButton.click();
     }
 }
