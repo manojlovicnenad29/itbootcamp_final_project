@@ -14,6 +14,7 @@ public class HomePage extends BasePage{
         super(driver, driverWait);
     }
     public void logout(){
+        // ovde treba proveriti.. tj ti si ulogovan, trebalo bi raditi, hmm
         logoutButton.click();
 
     }
