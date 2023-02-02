@@ -1,11 +1,14 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 
 public class AdminPage extends BasePage {
@@ -25,6 +28,14 @@ public class AdminPage extends BasePage {
     @FindBy(className = "btnSave")
     private WebElement saveButton;
 
+    @FindBy(id = "search")
+    private WebElement searchBar;
+    @FindBy(xpath = "//*[@id=\"edit\"]")
+    private WebElement editButton;
+
+
+    @FindBy(id = "name")
+    private WebElement editCityName;
 
     public AdminPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -46,8 +57,18 @@ public class AdminPage extends BasePage {
         saveButton.click();
     }
 
-
     public WebElement getErrorMsg() {
         return errorMsg;
     }
+
+
+    public void editCityName(String cityName) {
+        searchBar.sendKeys(cityName);
+        editButton.click();
+        editCityName.sendKeys(Keys.SPACE, "-edited");
+        driverWait.until(ExpectedConditions.elementToBeClickable(saveButton));
+        saveButton.click();
+    }
+
+
 }
