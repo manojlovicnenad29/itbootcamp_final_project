@@ -28,6 +28,10 @@ public class AuthRoutesTests extends BaseTest {
         driver.get("https://vue-demo.daniel-avellaneda.com/profile");
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
-
+    @Test
+    public void forbidsVisitstoadminCitiesUrlIfNotAuthenticated() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
+    }
 
 }
