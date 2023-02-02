@@ -76,8 +76,13 @@ public class AdminCitiesTests extends BaseTest {
         Assert.assertEquals(expectedResult, editCityString);
     }
 
-
-
+@Test
+public void deleteCity()   {
+adminPage.deleteCItyName(cityName);
+    WebElement errorMsg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
+    driverWait.until(ExpectedConditions.visibilityOf(errorMsg));
+    Assert.assertTrue(errorMsg.getText().contains("Deleted successfully"));
+}
     @AfterClass
     public void afterClass() {
         homePage.logout();
