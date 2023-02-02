@@ -83,6 +83,8 @@ adminPage.deleteCItyName(cityName);
     driverWait.until(ExpectedConditions.visibilityOf(errorMsg));
     Assert.assertTrue(errorMsg.getText().contains("Deleted successfully"));
 }
+
+
     @AfterClass
     public void afterClass() {
         homePage.logout();
