@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SignupPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"app\"]/div/main/div/div[2]/div/div/div[2]/span/form/div/div[5]/button")
     private WebElement signupButton;
+
     @FindBy(id = "name")
     private WebElement name;
     @FindBy(id = "email")
@@ -24,10 +25,6 @@ public class SignupPage extends BasePage {
         super(driver, driverWait);
     }
 
-    public WebElement getName() {
-        return name;
-    }
-
     public WebElement getEmail() {
         return email;
     }
@@ -40,7 +37,15 @@ public class SignupPage extends BasePage {
         return confirmpassword;
     }
 
-    public void invalidSignup(){
+    public WebElement getSignupButton() {
+        return signupButton;
+    }
+
+    public WebElement getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void invalidSignup() {
         name.clear();
         name.sendKeys("Test Test");
         email.clear();
@@ -50,8 +55,8 @@ public class SignupPage extends BasePage {
         confirmpassword.sendKeys("123654");
         signupButton.click();
     }
-    public void validSignup(String fullname, String emailStr, String passwordStr){
-        driver.get("https://vue-demo.daniel-avellaneda.com/signup");
+
+    public void validSignup(String fullname, String emailStr, String passwordStr) {
         name.clear();
         name.sendKeys(fullname);
         email.clear();
@@ -61,4 +66,5 @@ public class SignupPage extends BasePage {
         confirmpassword.sendKeys(passwordStr);
         signupButton.click();
     }
+
 }

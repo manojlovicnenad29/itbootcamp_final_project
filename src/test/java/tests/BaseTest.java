@@ -12,7 +12,6 @@ import java.time.Duration;
 public abstract class BaseTest {
     protected WebDriverWait driverWait;
     protected WebDriver driver;
-
     protected String baseUrl = "https://vue-demo.daniel-avellaneda.com";
 
     @BeforeClass
@@ -22,9 +21,11 @@ public abstract class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds((15)));
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
+
     @BeforeMethod
     public void beforeMethod() {
         driver.get(baseUrl);
+        driver.manage().window().maximize();
     }
 
     @AfterClass

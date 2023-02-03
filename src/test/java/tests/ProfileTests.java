@@ -35,9 +35,11 @@ public class ProfileTests extends BaseTest {
     @BeforeMethod
     public void beforeMethod() {
         super.beforeMethod();
-        driver.manage().window().maximize();
+        driver.get("https://vue-demo.daniel-avellaneda.com/signup");
         signupPage.validSignup(fullname, email, password);
+        driver.get("https://vue-demo.daniel-avellaneda.com/login");
         loginPage.login(email, password);
+        loginPage.closeButton();
         driverWait.until(ExpectedConditions.visibilityOf((homePage.getLogoutButton())));
         driverWait.until(ExpectedConditions.elementToBeClickable(homePage.getLogoutButton()));
         driver.get("https://vue-demo.daniel-avellaneda.com/profile");
@@ -45,7 +47,7 @@ public class ProfileTests extends BaseTest {
     }
 
     @Test
-    public void editProfile()  {
+    public void editProfile() {
         String fullName = faker.name().fullName();
         String phone = faker.phoneNumber().cellPhone();
         String city = "Chicago";

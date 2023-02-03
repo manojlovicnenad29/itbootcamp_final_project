@@ -8,7 +8,7 @@ import pages.HomePage;
 
 public class LocaleTests extends BaseTest{
 
-    private HomePage homePage;
+    protected HomePage homePage;
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();

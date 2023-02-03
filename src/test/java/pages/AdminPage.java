@@ -20,6 +20,11 @@ public class AdminPage extends BasePage {
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/div[3]/form/div[1]/button")
     private WebElement newItem;
+
+    public WebElement getNewItem() {
+        return newItem;
+    }
+
     @FindBy(id = "name")
     private WebElement inputName;
 
@@ -45,10 +50,6 @@ public class AdminPage extends BasePage {
     @FindBy(xpath = "/html/body/div/div[5]/div/div/div[2]/button[2]/span")
     private WebElement deleteButton;
 
-    @FindBy(className = "v-dialog--active")
-    private WebElement deleteDialog;
-    @FindBy(className = "v-card__actions")
-    private WebElement deleteDialog2;
     public AdminPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }

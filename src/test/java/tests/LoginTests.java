@@ -1,7 +1,6 @@
 package tests;
 
 import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -13,9 +12,9 @@ import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
 
-    private LoginPage loginPage;
-    private Faker faker;
-    private HomePage homePage;
+    protected LoginPage loginPage;
+    protected Faker faker;
+    protected HomePage homePage;
 
     @BeforeClass
     public void beforeClass() {
@@ -51,11 +50,9 @@ public class LoginTests extends BaseTest {
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         loginPage.login(email, password);
-        String errorMsg = "User does not exists";
         driverWait.until(ExpectedConditions.visibilityOf(loginPage.getErrorMsg()));
-        Assert.assertEquals(loginPage.getErrorMsg().getText(), errorMsg);
-        String urlPage = "https://vue-demo.daniel-avellaneda.com/login";
-        Assert.assertEquals(driver.getCurrentUrl(), urlPage);
+        Assert.assertTrue(loginPage.getErrorMsg().getText().contains("User does not exists"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
@@ -63,30 +60,23 @@ public class LoginTests extends BaseTest {
         String email = "admin@admin.com";
         String password = faker.internet().password();
         loginPage.login(email, password);
-        String errorMsg = "Wrong password";
-        Assert.assertEquals(loginPage.getErrorMsg().getText(), errorMsg);
-        String urlPage = "https://vue-demo.daniel-avellaneda.com/login";
-        Assert.assertEquals(driver.getCurrentUrl(), urlPage);
+        Assert.assertTrue(loginPage.getErrorMsg().getText().contains("Wrong password"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
     public void validLogin() {
-        loginPage.login("admin@admin.com", "12345");
-        String expectedResult = "https://vue-demo.daniel-avellaneda.com/home";
-        WebElement logout = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]"));
-        driverWait.until(ExpectedConditions.elementToBeClickable(logout));
-        Assert.assertTrue(driver.getCurrentUrl().contains(expectedResult));
+        loginPage.validlogin();
+        driverWait.until(ExpectedConditions.elementToBeClickable(homePage.getLogoutButton()));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
 
     @Test
     public void logout() {
         validLogin();
-        WebElement logout = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]"));
-        driverWait.until(ExpectedConditions.elementToBeClickable(logout));
-        Assert.assertTrue(logout.isDisplayed());
+        driverWait.until(ExpectedConditions.elementToBeClickable(homePage.getLogoutButton()));
+        Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.logout();
         visitsTheLoginPage();
     }
-
-
 }

@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import pages.SignupPage;
 
 public class SignupTests extends BaseTest {
-
     protected SignupPage signupPage;
     protected Faker faker;
 
@@ -29,8 +28,7 @@ public class SignupTests extends BaseTest {
 
     @Test
     public void visitsTheSignupPage() {
-        WebElement signupButton = driver.findElement(By.xpath("//*[@id=\"app\"]/div/main/div/div[2]/div/div/div[2]/span/form/div/div[5]/button"));
-        driverWait.until(ExpectedConditions.elementToBeClickable(signupButton));
+        driverWait.until(ExpectedConditions.elementToBeClickable(signupPage.getSignupButton()));
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
     }
 
@@ -47,11 +45,8 @@ public class SignupTests extends BaseTest {
     @Test
     public void displaysErrorsWhenUserAlreadyExists() {
         signupPage.invalidSignup();
-//WebElement errorMsg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]"));
-//Assert.assertTrue(errorMsg.getText().contains("E-mail already exists"));
-        WebElement errorMSg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]/ul/li"));
-        driverWait.until(ExpectedConditions.visibilityOf(errorMSg));
-        Assert.assertEquals(errorMSg.getText(), "E-mail already exists");
+        driverWait.until(ExpectedConditions.visibilityOf(signupPage.getErrorMsg()));
+        Assert.assertTrue(signupPage.getErrorMsg().getText().contains("E-mail already exists"));
         visitsTheSignupPage();
     }
 
@@ -61,12 +56,8 @@ public class SignupTests extends BaseTest {
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
         signupPage.validSignup(fullname, email, password);
-        WebElement infoMSg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[4]/div/div"));
         driverWait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div"), "IMPORTANT: Verify your account"));
-        WebElement expectedResult = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]")));
-
-        Assert.assertEquals(expectedResult.getText(), "IMPORTANT: Verify your account");
+        WebElement dialogMsg = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]")));
+        Assert.assertEquals(dialogMsg.getText(), "IMPORTANT: Verify your account");
     }
-
-
 }

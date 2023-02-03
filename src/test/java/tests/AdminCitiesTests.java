@@ -14,13 +14,13 @@ import pages.HomePage;
 import pages.LoginPage;
 
 public class AdminCitiesTests extends BaseTest {
-    private LoginPage loginPage;
-    private AdminPage adminPage;
+    protected LoginPage loginPage;
+    protected AdminPage adminPage;
 
-    private HomePage homePage;
+    protected HomePage homePage;
 
-    private Faker faker;
-    private String cityName;
+    protected Faker faker;
+    protected String cityName;
 
     @BeforeClass
     public void beforeClass() {
@@ -35,39 +35,35 @@ public class AdminCitiesTests extends BaseTest {
     @BeforeMethod
     public void beforeMethod() {
         super.beforeMethod();
-        driver.manage().window().maximize();
         loginPage.validlogin();
         adminPage.goToadminPage();
     }
 
     @Test
     public void visitsTheAdminCitiesPageAndListCities() {
-        WebElement newItem = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/div[3]/form/div[1]/button"));
-        driverWait.until(ExpectedConditions.visibilityOf(newItem));
+        driverWait.until(ExpectedConditions.visibilityOf(adminPage.getNewItem()));
         Assert.assertTrue(driver.getCurrentUrl().contains("/admin/cities"));
-        WebElement logoutButton = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]"));
-        driverWait.until(ExpectedConditions.visibilityOf(logoutButton));
-        Assert.assertTrue(logoutButton.isDisplayed());
+        driverWait.until(ExpectedConditions.visibilityOf(homePage.getLogoutButton()));
+        Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
     }
 
     @Test
     public void createNewCity() {
         adminPage.addNewCity(cityName);
-        WebElement errorMsg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
-        driverWait.until(ExpectedConditions.visibilityOf(errorMsg));
-        Assert.assertTrue(errorMsg.getText().contains("Saved successfully"));
+        driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
+        Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Saved successfully"));
     }
 
     @Test
     public void edithCity() {
+        createNewCity();
         adminPage.editCityName(cityName);
-        WebElement errorMsg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
-        driverWait.until(ExpectedConditions.visibilityOf(errorMsg));
-        Assert.assertTrue(errorMsg.getText().contains("Saved successfully"));
+        driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
+        Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Saved successfully"));
     }
 
     @Test
-    public void searchCity(){
+    public void searchCity() {
         createNewCity();
         edithCity();
         WebElement editCity = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]"));
@@ -76,13 +72,13 @@ public class AdminCitiesTests extends BaseTest {
         Assert.assertEquals(expectedResult, editCityString);
     }
 
-@Test
-public void deleteCity()   {
-adminPage.deleteCItyName(cityName);
-    WebElement errorMsg = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]"));
-    driverWait.until(ExpectedConditions.visibilityOf(errorMsg));
-    Assert.assertTrue(errorMsg.getText().contains("Deleted successfully"));
-}
+    @Test
+    public void deleteCity() {
+        createNewCity();
+        adminPage.deleteCItyName(cityName);
+        driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
+        Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Deleted successfully"));
+    }
 
 
     @AfterClass

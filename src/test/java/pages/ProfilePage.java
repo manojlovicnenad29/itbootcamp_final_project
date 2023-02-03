@@ -68,10 +68,8 @@ public class ProfilePage extends BasePage {
         saveButton.click();
     }
 
-
     public WebElement getProfileInputForm() {
         return profileInputForm;
     }
-
 
 }
