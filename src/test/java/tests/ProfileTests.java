@@ -59,6 +59,12 @@ public class ProfileTests extends BaseTest {
         String actualResult = profilePage.dialogMsgString();
         driverWait.until(ExpectedConditions.visibilityOf(profilePage.getDialogMsg()));
         Assert.assertTrue(actualResult.contains("Profile saved successfuly"));
+        Assert.assertEquals(profilePage.getFullNameField().getAttribute("value"), fullName);
+        Assert.assertEquals(profilePage.getPhoneField().getAttribute("value"), phone);
+        Assert.assertEquals(profilePage.getCityField().getAttribute("value"), city);
+        Assert.assertEquals(profilePage.getCountryField().getAttribute("value"), country);
+        Assert.assertEquals(profilePage.getTwitterField().getAttribute("value"), twitter);
+        Assert.assertEquals(profilePage.getGitHubField().getAttribute("value"), github);
     }
 
 }

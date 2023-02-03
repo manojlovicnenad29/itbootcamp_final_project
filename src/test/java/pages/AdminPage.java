@@ -47,8 +47,12 @@ public class AdminPage extends BasePage {
     @FindBy(id = "delete")
     private WebElement trashButton;
 
-    @FindBy(xpath = "/html/body/div/div[5]/div/div/div[2]/button[2]/span")
+    @FindBy(xpath = "/html/body/div/div[10]/div/div/div[2]/button[2]/span")
     private WebElement deleteButton;
+
+    @FindBy(css = "#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > button.v-btn.v-btn--text.theme--light.v-size--default.red--text.text--lighten3")
+    private WebElement deleteButton2;
+
 
     public AdminPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -88,11 +92,9 @@ public class AdminPage extends BasePage {
         searchBar.sendKeys(cityName);
         driverWait.until(ExpectedConditions.textToBePresentInElement(searchResult, cityName));
         trashButton.click();
-        driverWait.until(ExpectedConditions.elementToBeClickable(deleteButton));
-        driverWait.until(ExpectedConditions.visibilityOf(deleteButton));
-        deleteButton.click();
-
-
+        driverWait.until(ExpectedConditions.visibilityOf(deleteButton2));
+        driverWait.until(ExpectedConditions.elementToBeClickable(deleteButton2));
+        deleteButton2.click();
     }
 
 

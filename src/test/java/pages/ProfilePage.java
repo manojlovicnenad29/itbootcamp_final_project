@@ -52,16 +52,16 @@ public class ProfilePage extends BasePage {
 
     @Test(dependsOnMethods = "isProfileInputFormDisplayed")
     public void filloutForm(String fullName, String phone, String city, String country, String twitter, String gitHub) {
-        fullNameField.clear();
+        fullNameField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         fullNameField.sendKeys(fullName);
-        phoneField.clear();
+        phoneField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         phoneField.sendKeys(phone);
-        cityField.clear();
+        cityField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        countryField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        countryField.sendKeys(country);
         cityField.sendKeys(city);
         cityField.sendKeys(Keys.ENTER, Keys.ARROW_DOWN, Keys.ENTER);
-        countryField.clear();
-        countryField.sendKeys(country);
-        twitterField.clear();
+        twitterField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         twitterField.sendKeys(twitter);
         gitHubField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         gitHubField.sendKeys(gitHub);
@@ -72,4 +72,27 @@ public class ProfilePage extends BasePage {
         return profileInputForm;
     }
 
+    public WebElement getFullNameField() {
+        return fullNameField;
+    }
+
+    public WebElement getPhoneField() {
+        return phoneField;
+    }
+
+    public WebElement getCityField() {
+        return cityField;
+    }
+
+    public WebElement getCountryField() {
+        return countryField;
+    }
+
+    public WebElement getTwitterField() {
+        return twitterField;
+    }
+
+    public WebElement getGitHubField() {
+        return gitHubField;
+    }
 }

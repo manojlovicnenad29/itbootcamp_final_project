@@ -18,13 +18,13 @@ public class HomePage extends BasePage{
     @FindBy(className = "btnLocaleActivation")
     private WebElement changeLanguageButton;
 
-    @FindBy(id = "list-item-75")
+    @FindBy(className = "btnES")
     private WebElement esButton;
 
-    @FindBy(id = "list-item-73")
+    @FindBy(className = "btnEN")
     private WebElement enButton;
 
-    @FindBy(id = "list-item-77")
+    @FindBy(className = "btnFR")
     private WebElement frButton;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/h1")
@@ -33,7 +33,6 @@ public class HomePage extends BasePage{
         super(driver, driverWait);
     }
     public void logout(){
-        // ovde treba proveriti.. tj ti si ulogovan, trebalo bi raditi, hmm
         logoutButton.click();
     }
     public void changeLanguage(){

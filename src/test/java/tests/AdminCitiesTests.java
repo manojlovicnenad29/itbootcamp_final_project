@@ -35,6 +35,7 @@ public class AdminCitiesTests extends BaseTest {
     @BeforeMethod
     public void beforeMethod() {
         super.beforeMethod();
+        driver.get("https://vue-demo.daniel-avellaneda.com/login");
         loginPage.validlogin();
         adminPage.goToadminPage();
     }
@@ -55,7 +56,7 @@ public class AdminCitiesTests extends BaseTest {
     }
 
     @Test
-    public void edithCity() {
+    public void editCity() {
         createNewCity();
         adminPage.editCityName(cityName);
         driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
@@ -65,7 +66,7 @@ public class AdminCitiesTests extends BaseTest {
     @Test
     public void searchCity() {
         createNewCity();
-        edithCity();
+        editCity();
         WebElement editCity = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]"));
         String expectedResult = cityName + " -edited";
         String editCityString = editCity.getText();
@@ -79,7 +80,6 @@ public class AdminCitiesTests extends BaseTest {
         driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
         Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Deleted successfully"));
     }
-
 
     @AfterClass
     public void afterClass() {
