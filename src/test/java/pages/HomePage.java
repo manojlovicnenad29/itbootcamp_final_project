@@ -8,6 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import javax.swing.*;
 
 public class HomePage extends BasePage{
+    public WebElement getLogoutButton() {
+        return logoutButton;
+    }
+
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[2]")
     private WebElement logoutButton;
 

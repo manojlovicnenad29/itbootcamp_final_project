@@ -3,7 +3,6 @@ package tests;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -18,7 +17,6 @@ public class LoginTests extends BaseTest {
     private Faker faker;
     private HomePage homePage;
 
-    @Override
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();

@@ -51,6 +51,7 @@ public class SignupPage extends BasePage {
         signupButton.click();
     }
     public void validSignup(String fullname, String emailStr, String passwordStr){
+        driver.get("https://vue-demo.daniel-avellaneda.com/signup");
         name.clear();
         name.sendKeys(fullname);
         email.clear();
