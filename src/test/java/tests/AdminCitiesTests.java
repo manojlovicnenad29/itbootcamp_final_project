@@ -1,6 +1,7 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -14,11 +15,8 @@ import pages.LoginPage;
 public class AdminCitiesTests extends BaseTest {
     protected LoginPage loginPage;
     protected AdminPage adminPage;
-
     protected HomePage homePage;
-
     protected Faker faker;
-
     protected String cityName;
 
     @BeforeClass
@@ -66,9 +64,10 @@ public class AdminCitiesTests extends BaseTest {
     public void searchCity() {
         adminPage.addNewCity(cityName);
         adminPage.editCityName(cityName);
+        adminPage.editedCitySearch(cityName);
         String expectedResult = cityName + " -edited";
         String editCityString = adminPage.getSearchResult().getText();
-        Assert.assertEquals(expectedResult, editCityString);
+        Assert.assertEquals(editCityString, expectedResult);
     }
 
     @Test

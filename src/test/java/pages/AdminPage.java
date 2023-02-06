@@ -34,6 +34,8 @@ public class AdminPage extends BasePage {
 
     @FindBy(id = "search")
     private WebElement searchBar;
+
+
     @FindBy(xpath = "//*[@id=\"edit\"]")
     private WebElement editButton;
 
@@ -69,6 +71,9 @@ public class AdminPage extends BasePage {
         return firstListElement;
     }
 
+    public WebElement getSearchBar() {
+        return searchBar;
+    }
 
     public void goToadminPage() {
         driverWait.until(ExpectedConditions.elementToBeClickable(adminButton));
@@ -81,7 +86,6 @@ public class AdminPage extends BasePage {
     public void addNewCity(String cityName) {
         goToadminPage();
         newItem.click();
-        driverWait.until(ExpectedConditions.visibilityOf(inputName));
         inputName.sendKeys(cityName);
         saveButton.click();
     }
@@ -91,11 +95,25 @@ public class AdminPage extends BasePage {
     }
 
     public void editCityName(String cityName) {
-        searchBar.sendKeys(cityName);
+        searchCity(cityName);
         editButton.click();
-        editCityName.sendKeys(Keys.SPACE, "-edited");
-        driverWait.until(ExpectedConditions.elementToBeClickable(saveButton));
+        driverWait.until(ExpectedConditions.visibilityOf(editCityName));
+        editCityName.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        editCityName.sendKeys(cityName + " -edited");
+        driverWait.until(ExpectedConditions.visibilityOf(saveButton));
         saveButton.click();
+    }
+
+    public void searchCity(String cityName) {
+        driverWait.until(ExpectedConditions.visibilityOf(editCityName));
+        searchBar.click();
+        editCityName.sendKeys(cityName);
+    }
+
+    public void editedCitySearch(String cityName) {
+        driverWait.until(ExpectedConditions.visibilityOf(searchBar));
+        searchBar.click();
+        searchBar.sendKeys(cityName + "-edited");
     }
 
     public void deleteCItyName(String cityName) {
