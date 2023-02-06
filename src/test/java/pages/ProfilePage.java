@@ -57,13 +57,16 @@ public class ProfilePage extends BasePage {
         phoneField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         phoneField.sendKeys(phone);
         cityField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        countryField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        countryField.sendKeys(country);
         cityField.sendKeys(city);
         cityField.sendKeys(Keys.ENTER, Keys.ARROW_DOWN, Keys.ENTER);
+        countryField.click();
+        countryField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        countryField.sendKeys(country);
+        twitterField.clear();
         twitterField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         twitterField.sendKeys(twitter);
         gitHubField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        gitHubField.clear();
         gitHubField.sendKeys(gitHub);
         saveButton.click();
     }

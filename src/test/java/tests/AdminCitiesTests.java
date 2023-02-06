@@ -76,6 +76,9 @@ public class AdminCitiesTests extends BaseTest {
     @Test
     public void deleteCity() {
         createNewCity();
+        WebElement firstListElement = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]"));
+        driverWait.until(ExpectedConditions.textToBePresentInElement(firstListElement, cityName));
+        Assert.assertEquals(firstListElement.getText(), cityName);
         adminPage.deleteCItyName(cityName);
         driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
         Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Deleted successfully"));

@@ -78,5 +78,7 @@ public class LoginTests extends BaseTest {
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.logout();
         visitsTheLoginPage();
+        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 }

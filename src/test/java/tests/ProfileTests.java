@@ -47,13 +47,13 @@ public class ProfileTests extends BaseTest {
     }
 
     @Test
-    public void editProfile() {
+    public void editProfile() throws InterruptedException {
         String fullName = faker.name().fullName();
         String phone = faker.phoneNumber().cellPhone();
         String city = "Chicago";
         String country = faker.address().country();
         String twitter = "https://twitter.com/mypicturefolder";
-        String github = "https://github.com/manojlovicnenad29/";
+        String github = "https://github.com/manojlovicnenad29";
         driverWait.until(ExpectedConditions.visibilityOf(profilePage.getProfileInputForm()));
         profilePage.filloutForm(fullName, phone, city, country, twitter, github);
         String actualResult = profilePage.dialogMsgString();
@@ -62,9 +62,9 @@ public class ProfileTests extends BaseTest {
         Assert.assertEquals(profilePage.getFullNameField().getAttribute("value"), fullName);
         Assert.assertEquals(profilePage.getPhoneField().getAttribute("value"), phone);
         Assert.assertEquals(profilePage.getCityField().getAttribute("value"), city);
-        Assert.assertEquals(profilePage.getCountryField().getAttribute("value"), country);
         Assert.assertEquals(profilePage.getTwitterField().getAttribute("value"), twitter);
         Assert.assertEquals(profilePage.getGitHubField().getAttribute("value"), github);
+        Assert.assertEquals(profilePage.getCountryField().getAttribute("value"), country);
     }
 
 }
