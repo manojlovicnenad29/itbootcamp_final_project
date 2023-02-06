@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.*;
-
-public class HomePage extends BasePage{
+public class HomePage extends BasePage {
     public WebElement getLogoutButton() {
         return logoutButton;
     }
@@ -29,14 +27,17 @@ public class HomePage extends BasePage{
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/h1")
     private WebElement header;
+
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
-    public void logout(){
+
+    public void logout() {
         logoutButton.click();
     }
-    public void changeLanguage(){
-changeLanguageButton.click();
+
+    public void changeLanguage() {
+        changeLanguageButton.click();
     }
 
     public WebElement getEsButton() {

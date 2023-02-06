@@ -47,7 +47,7 @@ public class ProfileTests extends BaseTest {
     }
 
     @Test
-    public void editProfile() throws InterruptedException {
+    public void editProfile() { //todo napraviti medotu za assert
         String fullName = faker.name().fullName();
         String phone = faker.phoneNumber().cellPhone();
         String city = "Chicago";
@@ -56,9 +56,8 @@ public class ProfileTests extends BaseTest {
         String github = "https://github.com/manojlovicnenad29";
         driverWait.until(ExpectedConditions.visibilityOf(profilePage.getProfileInputForm()));
         profilePage.filloutForm(fullName, phone, city, country, twitter, github);
-        String actualResult = profilePage.dialogMsgString();
         driverWait.until(ExpectedConditions.visibilityOf(profilePage.getDialogMsg()));
-        Assert.assertTrue(actualResult.contains("Profile saved successfuly"));
+        Assert.assertTrue(profilePage.dialogMsgString().contains("Profile saved successfuly"));
         Assert.assertEquals(profilePage.getFullNameField().getAttribute("value"), fullName);
         Assert.assertEquals(profilePage.getPhoneField().getAttribute("value"), phone);
         Assert.assertEquals(profilePage.getCityField().getAttribute("value"), city);

@@ -11,12 +11,15 @@ public class SignupPage extends BasePage {
 
     @FindBy(id = "name")
     private WebElement name;
+
     @FindBy(id = "email")
     private WebElement email;
+
     @FindBy(id = "password")
     private WebElement password;
+
     @FindBy(id = "confirmPassword")
-    private WebElement confirmpassword;
+    private WebElement confirmPassword;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[3]/div/div/div/div/div[1]")
     private WebElement errorMsg;
@@ -33,8 +36,8 @@ public class SignupPage extends BasePage {
         return password;
     }
 
-    public WebElement getConfirmpassword() {
-        return confirmpassword;
+    public WebElement getConfirmPassword() {
+        return confirmPassword;
     }
 
     public WebElement getSignupButton() {
@@ -52,18 +55,18 @@ public class SignupPage extends BasePage {
         email.sendKeys("admin@admin.com");
         password.clear();
         password.sendKeys("123654");
-        confirmpassword.sendKeys("123654");
+        confirmPassword.sendKeys("123654");
         signupButton.click();
     }
 
-    public void validSignup(String fullname, String emailStr, String passwordStr) {
+    public void validSignup(String fullName, String emailStr, String passwordStr) {
         name.clear();
-        name.sendKeys(fullname);
+        name.sendKeys(fullName);
         email.clear();
         email.sendKeys(emailStr);
         password.clear();
         password.sendKeys(passwordStr);
-        confirmpassword.sendKeys(passwordStr);
+        confirmPassword.sendKeys(passwordStr);
         signupButton.click();
     }
 

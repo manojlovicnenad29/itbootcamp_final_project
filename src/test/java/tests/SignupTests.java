@@ -36,7 +36,7 @@ public class SignupTests extends BaseTest {
     public void checksInputTypes() {
         WebElement email = signupPage.getEmail();
         WebElement password = signupPage.getPassword();
-        WebElement confirmPassword = signupPage.getConfirmpassword();
+        WebElement confirmPassword = signupPage.getConfirmPassword();
         Assert.assertEquals(email.getAttribute("type"), "email");
         Assert.assertEquals(password.getAttribute("type"), "password");
         Assert.assertEquals(confirmPassword.getAttribute("type"), "password");
@@ -51,13 +51,14 @@ public class SignupTests extends BaseTest {
     }
 
     @Test
-    public void Signup() {
-        String fullname = faker.name().fullName();
+    public void signup() {
+        String fullName = faker.name().fullName();
         String email = faker.internet().emailAddress();
         String password = faker.internet().password();
-        signupPage.validSignup(fullname, email, password);
+        signupPage.validSignup(fullName, email, password);
         driverWait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div"), "IMPORTANT: Verify your account"));
         WebElement dialogMsg = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]")));
         Assert.assertEquals(dialogMsg.getText(), "IMPORTANT: Verify your account");
     }
+
 }

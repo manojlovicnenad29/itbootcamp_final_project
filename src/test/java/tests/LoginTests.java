@@ -73,7 +73,7 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void logout() {
-        validLogin();
+        loginPage.validlogin();
         driverWait.until(ExpectedConditions.elementToBeClickable(homePage.getLogoutButton()));
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.logout();
@@ -81,4 +81,5 @@ public class LoginTests extends BaseTest {
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
+
 }

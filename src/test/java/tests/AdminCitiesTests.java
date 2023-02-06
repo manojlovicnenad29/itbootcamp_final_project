@@ -1,8 +1,6 @@
 package tests;
 
 import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -20,6 +18,7 @@ public class AdminCitiesTests extends BaseTest {
     protected HomePage homePage;
 
     protected Faker faker;
+
     protected String cityName;
 
     @BeforeClass
@@ -57,7 +56,7 @@ public class AdminCitiesTests extends BaseTest {
 
     @Test
     public void editCity() {
-        createNewCity();
+        adminPage.addNewCity(cityName);
         adminPage.editCityName(cityName);
         driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
         Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Saved successfully"));
@@ -65,20 +64,18 @@ public class AdminCitiesTests extends BaseTest {
 
     @Test
     public void searchCity() {
-        createNewCity();
-        editCity();
-        WebElement editCity = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]"));
+        adminPage.addNewCity(cityName);
+        adminPage.editCityName(cityName);
         String expectedResult = cityName + " -edited";
-        String editCityString = editCity.getText();
+        String editCityString = adminPage.getSearchResult().getText();
         Assert.assertEquals(expectedResult, editCityString);
     }
 
     @Test
     public void deleteCity() {
-        createNewCity();
-        WebElement firstListElement = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]"));
-        driverWait.until(ExpectedConditions.textToBePresentInElement(firstListElement, cityName));
-        Assert.assertEquals(firstListElement.getText(), cityName);
+        adminPage.addNewCity(cityName);
+        driverWait.until(ExpectedConditions.textToBePresentInElement(adminPage.getFirstListElement(), cityName));
+        Assert.assertEquals(adminPage.getFirstListElement().getText(), cityName);
         adminPage.deleteCItyName(cityName);
         driverWait.until(ExpectedConditions.visibilityOf(adminPage.getErrorMsg()));
         Assert.assertTrue(adminPage.getErrorMsg().getText().contains("Deleted successfully"));

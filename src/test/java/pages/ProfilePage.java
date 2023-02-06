@@ -50,7 +50,6 @@ public class ProfilePage extends BasePage {
         else return false;
     }
 
-    @Test(dependsOnMethods = "isProfileInputFormDisplayed")
     public void filloutForm(String fullName, String phone, String city, String country, String twitter, String gitHub) {
         fullNameField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
         fullNameField.sendKeys(fullName);

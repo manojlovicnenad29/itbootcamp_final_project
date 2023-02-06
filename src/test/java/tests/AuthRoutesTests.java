@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 public class AuthRoutesTests extends BaseTest {
 
-
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();
@@ -23,16 +22,19 @@ public class AuthRoutesTests extends BaseTest {
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
+
     @Test
     public void forbidsVisitstoProfileUrlIfNotAuthenticated() {
         driver.get("https://vue-demo.daniel-avellaneda.com/profile");
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
+
     @Test
     public void forbidsVisitstoadminCitiesUrlIfNotAuthenticated() {
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
+
     @Test
     public void forbidsVisitstoadminusersUrlIfNotAuthenticated() {
         driver.get("https://vue-demo.daniel-avellaneda.com/admin/users");

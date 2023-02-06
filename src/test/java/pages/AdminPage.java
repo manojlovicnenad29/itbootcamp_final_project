@@ -20,10 +20,8 @@ public class AdminPage extends BasePage {
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/div[3]/form/div[1]/button")
     private WebElement newItem;
-
-    public WebElement getNewItem() {
-        return newItem;
-    }
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr[1]/td[2]")
+    private WebElement firstListElement;
 
     @FindBy(id = "name")
     private WebElement inputName;
@@ -41,6 +39,7 @@ public class AdminPage extends BasePage {
 
     @FindBy(id = "name")
     private WebElement editCityName;
+
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
     WebElement searchResult;
 
@@ -56,6 +55,18 @@ public class AdminPage extends BasePage {
 
     public AdminPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
+    }
+
+    public WebElement getSearchResult() {
+        return searchResult;
+    }
+
+    public WebElement getNewItem() {
+        return newItem;
+    }
+
+    public WebElement getFirstListElement() {
+        return firstListElement;
     }
 
 
@@ -79,7 +90,6 @@ public class AdminPage extends BasePage {
         return errorMsg;
     }
 
-
     public void editCityName(String cityName) {
         searchBar.sendKeys(cityName);
         editButton.click();
@@ -96,6 +106,5 @@ public class AdminPage extends BasePage {
         driverWait.until(ExpectedConditions.elementToBeClickable(deleteButton2));
         deleteButton2.click();
     }
-
 
 }
