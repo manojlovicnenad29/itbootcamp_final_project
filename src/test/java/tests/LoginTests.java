@@ -1,7 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -13,43 +11,35 @@ import pages.LoginPage;
 public class LoginTests extends BaseTest {
 
     protected LoginPage loginPage;
-    protected Faker faker;
     protected HomePage homePage;
 
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();
         loginPage = new LoginPage(driver, driverWait);
-        faker = new Faker();
         homePage = new HomePage(driver, driverWait);
     }
 
     @BeforeMethod
     public void beforeMethod() {
         super.beforeMethod();
-        driver.get("https://vue-demo.daniel-avellaneda.com/login");
+        toLoginPage();
     }
 
     @Test
     public void visitsTheLoginPage() {
-        String urlPage = "https://vue-demo.daniel-avellaneda.com/login";
-        Assert.assertEquals(driver.getCurrentUrl(), urlPage);
+        Assert.assertEquals(driver.getCurrentUrl(), loginPage.getLOGINPAGEADDRESS());
     }
 
     @Test
     public void checkInputTypes() {
-        WebElement email = loginPage.getEmail();
-        WebElement password = loginPage.getPassword();
-        System.out.println(email);
-        Assert.assertEquals(email.getAttribute("type"), "email");
-        Assert.assertEquals(password.getAttribute("type"), "password");
+        Assert.assertEquals(checkAttributeType(loginPage.getEmail()), "email");
+        Assert.assertEquals(checkAttributeType(loginPage.getPassword()), "password");
     }
 
     @Test
     public void displaysErrorsWhenUserDoesNotExist() {
-        String email = faker.internet().emailAddress();
-        String password = faker.internet().password();
-        loginPage.login(email, password);
+        loginPage.login(loginPage.getFakerEmail(), loginPage.getFakerPassword());
         driverWait.until(ExpectedConditions.visibilityOf(loginPage.getErrorMsg()));
         Assert.assertTrue(loginPage.getErrorMsg().getText().contains("User does not exists"));
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
@@ -57,28 +47,26 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void displaysErrorsWhenPasswordIsWrong() {
-        String email = "admin@admin.com";
-        String password = faker.internet().password();
-        loginPage.login(email, password);
+        loginPage.login(loginPage.getADMINUSERNAME(), loginPage.getFakerPassword());
         Assert.assertTrue(loginPage.getErrorMsg().getText().contains("Wrong password"));
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
     public void validLogin() {
-        loginPage.validlogin();
+        loginPage.adminLogin();
         driverWait.until(ExpectedConditions.elementToBeClickable(homePage.getLogoutButton()));
         Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
 
     @Test
     public void logout() {
-        loginPage.validlogin();
+        loginPage.adminLogin();
         driverWait.until(ExpectedConditions.elementToBeClickable(homePage.getLogoutButton()));
         Assert.assertTrue(homePage.getLogoutButton().isDisplayed());
         homePage.logout();
         visitsTheLoginPage();
-        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+        toHomePage();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 

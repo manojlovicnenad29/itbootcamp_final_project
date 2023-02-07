@@ -1,6 +1,7 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -17,7 +18,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void beforeClass() {
-        System.setProperty("webdriver.chrome.driver", "C:\\BC\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "C:\\BC\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds((15)));
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -29,6 +30,36 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
     }
 
+    public void toLoginPage() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/login");
+    }
+
+    public void toHomePage() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+    }
+
+    public void toProfilePage() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/profile");
+    }
+
+    public void toCitiesPage() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
+    }
+
+    public void toUsersPage() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/admin/users");
+    }
+
+    public void toSignupPage() {
+        driver.get("https://vue-demo.daniel-avellaneda.com/signup");
+    }
+
+    public String checkAttributeValue(WebElement webElement) {
+    return webElement.getAttribute("value");
+    }
+    public String checkAttributeType(WebElement webElement) {
+        return webElement.getAttribute("type");
+    }
     @AfterClass
     public void afterClass() {
         driver.quit();

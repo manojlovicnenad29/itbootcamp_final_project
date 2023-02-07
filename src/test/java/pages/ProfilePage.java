@@ -1,14 +1,20 @@
 package pages;
 
+import com.github.javafaker.Faker;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 
 public class ProfilePage extends BasePage {
-
+    protected Faker faker = new Faker();
+    private String fullName = faker.name().fullName();
+    private String phone = faker.phoneNumber().cellPhone();
+    private String country = faker.address().country();
+    private String twitter = "https://twitter.com/" + faker.address().firstName().toLowerCase();
+    private String github = "https://github.com/" + faker.address().firstName().toLowerCase();
+    private String city = "Chicago";
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[2]/span/form")
     private WebElement profileInputForm;
 
@@ -43,30 +49,19 @@ public class ProfilePage extends BasePage {
         return dialogMsg;
     }
 
-    public boolean isProfileInputFormDisplayed() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/profile");
-        if (profileInputForm.isDisplayed())
-            return true;
-        else return false;
+    public void clearInputFieldAndFill(WebElement webElement, String text) {
+        webElement.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        webElement.sendKeys(text);
     }
 
-    public void filloutForm(String fullName, String phone, String city, String country, String twitter, String gitHub) {
-        fullNameField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        fullNameField.sendKeys(fullName);
-        phoneField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        phoneField.sendKeys(phone);
-        cityField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        cityField.sendKeys(city);
-        cityField.sendKeys(Keys.ENTER, Keys.ARROW_DOWN, Keys.ENTER);
-        countryField.click();
-        countryField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        countryField.sendKeys(country);
-        twitterField.clear();
-        twitterField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        twitterField.sendKeys(twitter);
-        gitHubField.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        gitHubField.clear();
-        gitHubField.sendKeys(gitHub);
+    public void fillOutForm() {
+        clearInputFieldAndFill(cityField, city);
+        cityField.sendKeys(Keys.TAB);
+        clearInputFieldAndFill(phoneField, phone);
+        clearInputFieldAndFill(fullNameField, fullName);
+        clearInputFieldAndFill(countryField, country);
+        clearInputFieldAndFill(twitterField, twitter);
+        clearInputFieldAndFill(gitHubField, github);
         saveButton.click();
     }
 
@@ -96,5 +91,29 @@ public class ProfilePage extends BasePage {
 
     public WebElement getGitHubField() {
         return gitHubField;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public String getGithub() {
+        return github;
+    }
+
+    public String getCity() {
+        return city;
     }
 }

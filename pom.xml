@@ -33,10 +33,11 @@
             <version>1.0.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>4.8.0</version>
+        </dependency>
     </dependencies>
-    <dependency>
-        <groupId>com.github.javafaker</groupId>
-        <artifactId>javafaker</artifactId>
-        <version>1.0.2</version>
-    </dependency>
 </project>

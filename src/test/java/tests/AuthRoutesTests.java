@@ -19,25 +19,25 @@ public class AuthRoutesTests extends BaseTest {
 
     @Test
     public void forbidsVisitsToHomeUrIfNotAuthenticated() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+        toHomePage();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
-    public void forbidsVisitstoProfileUrlIfNotAuthenticated() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/profile");
+    public void forbidsVisitsToProfileUrlIfNotAuthenticated() {
+        toProfilePage();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
-    public void forbidsVisitstoadminCitiesUrlIfNotAuthenticated() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/admin/cities");
+    public void forbidsVisitsToAdminCitiesUrlIfNotAuthenticated() {
+        toCitiesPage();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
-    public void forbidsVisitstoadminusersUrlIfNotAuthenticated() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/admin/users");
+    public void forbidsVisitsToAdminUsersUrlIfNotAuthenticated() {
+        toUsersPage();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 

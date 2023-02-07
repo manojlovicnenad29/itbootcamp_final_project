@@ -5,6 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
+
     protected WebDriver driver;
 
     protected WebDriverWait driverWait;
@@ -14,4 +15,5 @@ public abstract class BasePage {
         this.driverWait = driverWait;
         PageFactory.initElements(this.driver, this);
     }
+
 }

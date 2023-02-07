@@ -1,11 +1,15 @@
 package pages;
 
+import com.github.javafaker.Faker;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends BasePage {
+
+    Faker faker = new Faker();
 
     @FindBy(id = "email")
     private WebElement email;
@@ -22,15 +26,31 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]/ul/li")
     private WebElement errorMsg;
 
+    private final String ADMINUSERNAME = "admin@admin.com";
+    private final String ADMINPASSWORD = "12345";
+    private String fakerEmail = faker.internet().emailAddress();
+    private String fakerPassword = faker.internet().password();
+
+    private final String LOGINPAGEADDRESS = "https://vue-demo.daniel-avellaneda.com/login";
+
     public LoginPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
 
+    public void clearInputFieldAndFill(WebElement webElement, String text) {
+        webElement.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        webElement.sendKeys(text);
+    }
+
     public void login(String user, String pass) {
-        email.clear();
-        email.sendKeys(user);
-        password.clear();
-        password.sendKeys(pass);
+        clearInputFieldAndFill(email, user);
+        clearInputFieldAndFill(password, pass);
+        loginButton.click();
+    }
+
+    public void adminLogin() {
+        clearInputFieldAndFill(email, ADMINUSERNAME);
+        clearInputFieldAndFill(password, ADMINPASSWORD);
         loginButton.click();
     }
 
@@ -46,12 +66,20 @@ public class LoginPage extends BasePage {
         return errorMsg;
     }
 
-    public void validlogin() {
-        email.clear();
-        email.sendKeys("admin@admin.com");
-        password.clear();
-        password.sendKeys("12345");
-        loginButton.click();
+    public String getADMINUSERNAME() {
+        return ADMINUSERNAME;
+    }
+
+    public String getFakerPassword() {
+        return fakerPassword;
+    }
+
+    public String getFakerEmail() {
+        return fakerEmail;
+    }
+
+    public String getLOGINPAGEADDRESS() {
+        return LOGINPAGEADDRESS;
     }
 
     public void closeButton() {

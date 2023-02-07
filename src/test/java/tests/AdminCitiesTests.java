@@ -1,7 +1,6 @@
 package tests;
 
 import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -32,9 +31,9 @@ public class AdminCitiesTests extends BaseTest {
     @BeforeMethod
     public void beforeMethod() {
         super.beforeMethod();
-        driver.get("https://vue-demo.daniel-avellaneda.com/login");
-        loginPage.validlogin();
-        adminPage.goToadminPage();
+        toLoginPage();
+        loginPage.adminLogin();
+        adminPage.goToAdminPage();
     }
 
     @Test
@@ -65,9 +64,7 @@ public class AdminCitiesTests extends BaseTest {
         adminPage.addNewCity(cityName);
         adminPage.editCityName(cityName);
         adminPage.editedCitySearch(cityName);
-        String expectedResult = cityName + " -edited";
-        String editCityString = adminPage.getSearchResult().getText();
-        Assert.assertEquals(editCityString, expectedResult);
+        Assert.assertEquals(adminPage.getSearchResult().getText(), cityName + " -edited");
     }
 
     @Test

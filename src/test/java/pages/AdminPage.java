@@ -1,15 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 
 
 public class AdminPage extends BasePage {
@@ -48,9 +44,6 @@ public class AdminPage extends BasePage {
     @FindBy(id = "delete")
     private WebElement trashButton;
 
-    @FindBy(xpath = "/html/body/div/div[10]/div/div/div[2]/button[2]/span")
-    private WebElement deleteButton;
-
     @FindBy(css = "#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > button.v-btn.v-btn--text.theme--light.v-size--default.red--text.text--lighten3")
     private WebElement deleteButton2;
 
@@ -71,11 +64,7 @@ public class AdminPage extends BasePage {
         return firstListElement;
     }
 
-    public WebElement getSearchBar() {
-        return searchBar;
-    }
-
-    public void goToadminPage() {
+    public void goToAdminPage() {
         driverWait.until(ExpectedConditions.elementToBeClickable(adminButton));
         adminButton.click();
         driverWait.until(ExpectedConditions.elementToBeClickable(adminButton));
@@ -84,7 +73,7 @@ public class AdminPage extends BasePage {
     }
 
     public void addNewCity(String cityName) {
-        goToadminPage();
+        goToAdminPage();
         newItem.click();
         inputName.sendKeys(cityName);
         saveButton.click();
@@ -94,12 +83,16 @@ public class AdminPage extends BasePage {
         return errorMsg;
     }
 
+    public void clearInputFieldAndFill(WebElement webElement, String text) {
+        webElement.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
+        webElement.sendKeys(text);
+    }
+
     public void editCityName(String cityName) {
         searchCity(cityName);
         editButton.click();
         driverWait.until(ExpectedConditions.visibilityOf(editCityName));
-        editCityName.sendKeys(Keys.CONTROL + "a", Keys.DELETE);
-        editCityName.sendKeys(cityName + " -edited");
+        clearInputFieldAndFill(editCityName, cityName + " -edited");
         driverWait.until(ExpectedConditions.visibilityOf(saveButton));
         saveButton.click();
     }

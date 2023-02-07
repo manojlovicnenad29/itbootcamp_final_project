@@ -1,8 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -12,18 +9,16 @@ import pages.SignupPage;
 
 public class SignupTests extends BaseTest {
     protected SignupPage signupPage;
-    protected Faker faker;
 
     @BeforeClass
     public void beforeClass() {
         super.beforeClass();
         signupPage = new SignupPage(driver, driverWait);
-        faker = new Faker();
     }
 
     @BeforeMethod
     public void beforeTest() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/signup");
+        toSignupPage();
     }
 
     @Test
@@ -34,12 +29,9 @@ public class SignupTests extends BaseTest {
 
     @Test
     public void checksInputTypes() {
-        WebElement email = signupPage.getEmail();
-        WebElement password = signupPage.getPassword();
-        WebElement confirmPassword = signupPage.getConfirmPassword();
-        Assert.assertEquals(email.getAttribute("type"), "email");
-        Assert.assertEquals(password.getAttribute("type"), "password");
-        Assert.assertEquals(confirmPassword.getAttribute("type"), "password");
+        Assert.assertEquals(checkAttributeType(signupPage.getEmail()), "email");
+        Assert.assertEquals(checkAttributeType(signupPage.getPassword()), "password");
+        Assert.assertEquals(checkAttributeType(signupPage.getConfirmPassword()), "password");
     }
 
     @Test
@@ -52,13 +44,14 @@ public class SignupTests extends BaseTest {
 
     @Test
     public void signup() {
-        String fullName = faker.name().fullName();
-        String email = faker.internet().emailAddress();
-        String password = faker.internet().password();
-        signupPage.validSignup(fullName, email, password);
-        driverWait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div"), "IMPORTANT: Verify your account"));
-        WebElement dialogMsg = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[4]/div/div/div[1]")));
-        Assert.assertEquals(dialogMsg.getText(), "IMPORTANT: Verify your account");
+        signupPage.fakerSignup();
+        driverWait.until(ExpectedConditions.textToBePresentInElement(signupPage.getDialogMsg(), "IMPORTANT: Verify your account"));
+        Assert.assertTrue(signupPage.getDialogMsg().getText().contains("IMPORTANT: Verify your account"));
     }
-
+    @Test
+    public void signup1() {
+        signupPage.validSignup();
+        driverWait.until(ExpectedConditions.textToBePresentInElement(signupPage.getDialogMsg(), "IMPORTANT: Verify your account"));
+        Assert.assertTrue(signupPage.getDialogMsg().getText().contains("IMPORTANT: Verify your account"));
+    }
 }
